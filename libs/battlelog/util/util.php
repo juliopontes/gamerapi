@@ -131,7 +131,7 @@ abstract class BattlelogUtil
 		$validSizes = array(
 			'tiny'		=> '30x21',
 			'large'		=> '992x164'
-		)
+		);
 		
 		$size = strtolower($size);
 		
