@@ -7,4 +7,9 @@ abstract class GamerApi
 	{
 		$this->curl = new GamerRequest();
 	}
+
+    public function debug($bool = false)
+    {
+        $this->curl->set('debug', $bool);
+    }
 }

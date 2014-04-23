@@ -6,6 +6,7 @@ class GamerRequest
 	private $response;
 	private $ch;
 	private $curlOptions = array();
+    private $debug = true;
 	
 	public function set($name, $value)
 	{
@@ -59,25 +60,57 @@ class GamerRequest
 		
 		if (count($this->header) > 0)
 		{
+            if ($this->debug) {
+                echo 'CURL HEADERS: <br ><ul>';
+            }
 			$sendHeaders = array();
 			foreach ($this->header as $headerKey => $headerValue)
 			{
 				$sendHeaders[] = $headerKey.': '.$headerValue;
+                if ($this->debug) {
+                    echo sprintf('<li>%s - %s</li>', $headerKey, $headerValue);
+                }
 			}
+            if ($this->debug) {
+                echo '</ul><br />';
+            }
 			$this->setCurlOption(CURLOPT_HTTPHEADER,$sendHeaders);
 		}
 		
 		if (count($this->curlOptions) > 0)
 		{
+            if ($this->debug) {
+                echo 'CURL OPTIONS: <br ><ul>';
+            }
 			foreach ($this->curlOptions as $option => $value)
 			{
+                if ($this->debug) {
+                    echo sprintf('<li>%s - %s</li>', $option, $value);
+                }
 				curl_setopt($this->ch, $option, $value);
 			}
+            if ($this->debug) {
+                echo '</ul><br />';
+            }
 		}
 		
 		$this->response = curl_exec($this->ch);
 		$this->info = curl_getinfo($this->ch);
 		curl_close($this->ch);
+
+        if ($this->debug) {
+            echo 'CURL INFO: <br ><ul>';
+            foreach ($this->info as $key => $value) {
+                if (is_array($value)) {
+                    $value = json_encode($value);
+                }
+                if (is_array($key)) {
+                    $key = json_encode($key);
+                }
+                echo sprintf('<li>%s - %s</li>', $key, $value);
+            }
+            echo '</ul>';
+        }
 		
 		return $this;
 	}

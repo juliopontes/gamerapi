@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', true);
 require_once 'libs/gamer/import.php';
 require_once 'libs/xbox/import.php';
 

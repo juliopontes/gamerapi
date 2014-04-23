@@ -1,7 +1,7 @@
 <?php
 abstract class XboxApi extends GamerApi
 {
-	const API_URL = "https://xboxapi.com/%s";
+	const API_URL = "https://xboxapi.com/v1/%s";
 	
 	public function getUrl($url)
 	{
